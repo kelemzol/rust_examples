@@ -1,0 +1,13 @@
+[package]
+name = "rust-example"
+version ="0.1.0"
+authors = ["zoltan.z.kelemen@ericsson.com"]
+
+
+[dependencies]
+rand = "0.3.14"
+#pancurses = "0.16"
+
+[dependencies.pancurses]
+version = "0.16"
+features = ["win32"]
