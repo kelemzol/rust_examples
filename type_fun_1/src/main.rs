@@ -1,10 +1,13 @@
+use std::fmt::Debug;
+
 pub trait To {
     type ToT;
 
     fn to(&self) -> Self::ToT;
 }
 
-struct Box(i32);
+#[derive(Debug)]
+pub struct Box(i32);
 
 impl To for Box {
     type ToT = i32;
@@ -15,14 +18,30 @@ impl To for Box {
     }
 }
 
-fn to_<T>(to: &dyn To<ToT = T>) -> &dyn To<ToT = T> {
+// Type of input param not equal type of output
+//fn to_<T: To + To<ToT = TT>, TT>(to: &dyn To<ToT = TT>) -> &dyn To<ToT = TT> {
+
+// &dyn To<ToT = TT> not equal T
+//fn to_<T: To + To<ToT = TT>, TT>(to: &dyn To<ToT = TT>) -> &T {
+
+// TT not mentioned
+//fn to_<T: To + To<ToT = TT>, TT>(to: &T) -> &T {
+
+fn to_<T: To>(to: &T) -> &T {
     return to;
 }
-
-fn toto<T: To + To<ToT = TT>,TT>(to: &dyn To<ToT = TT>) -> <T as To>::ToT {
+// need concrete types at call
+// let b__ : i32= toto::<Box,i32>(&b);
+//fn toto<T: To + To<ToT = TT>,TT>(to: &dyn To<ToT = TT>) -> <T as To>::ToT {
+fn toto<T: To + To<ToT = TT>,TT>(to: &T) -> TT {
     return to.to();
 }
 
 fn main() {
-    println!("Hello");
+    let b = Box(23);
+    println!("Hello {:?}", b);
+    let b_ = to_(&b);
+    println!("Hello {:?}", b_);
+    let b__ = toto(&b);
+    println!("Hello {:?}", b__);
 }
