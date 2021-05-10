@@ -1,15 +1,20 @@
-mod Heroes {
+pub mod princess;
+
+mod heroes {
+    use crate::princess;
+    
     fn fight() {
         println!("Argh!"); // callable with Heroes::fight();
+        princess::save_me();
     }
-    mod Heroics{ // Mods can go inside mods
+    mod heroics{ // Mods can go inside mods
         fn win(){
             println!("I win"); // callable at Heroes::Heroics::win();
         }
     }
 }
 
-mod Monsters {
+mod monsters {
     fn fight() { // each mod is a separate namespace
         println!("Argh!"); // callable with Monsters::fight();
     }

@@ -1,5 +1,3 @@
-mod princess {
-    fn save_me(){
+    pub fn save_me(){
         println!("CTRL + S");
     }
-}
